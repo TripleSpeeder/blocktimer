@@ -3,7 +3,6 @@ import Paper from '@material-ui/core/Paper'
 import {makeStyles} from '@material-ui/core/styles'
 import DateTimePicker from './ExtendedDateTimePicker'
 import NativeDateTimePicker from './NativeDateTimePicker'
-import FormGroup from '@material-ui/core/FormGroup'
 import {FormControlLabel} from '@material-ui/core'
 import Switch from '@material-ui/core/Switch'
 
