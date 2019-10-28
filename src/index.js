@@ -6,7 +6,8 @@ import App from './components/App';
 import * as serviceWorker from './serviceWorker';
 
 const client = new ApolloClient({
-    uri: 'http://127.0.0.1:8000/graphql/',
+    // uri: 'http://127.0.0.1:8000/graphql/',
+    uri: 'https://blocktimer-backend.appspot.com/graphql/',
 });
 
 const WrappedApp = () => (
