@@ -1,23 +1,17 @@
-import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import {Header, Footer} from './Layouts'
+import React from 'react'
+import {MyHeader} from './Layouts'
 import Content from './Content'
-import Container from '@material-ui/core/Container'
+import {Container} from 'semantic-ui-react'
+import SelectorContainer from './Content/SelectorContainer'
 
 
 function App() {
-  return (
-      <Container maxwidth={'sm'}>
-          <CssBaseline/>
-
-          <Header/>
-
-          <Content/>
-
-          <Footer/>
-
-      </Container>
-  );
+    return (
+            <Container style={{ marginTop: '3em' }}>
+                <MyHeader/>
+                <SelectorContainer/>
+            </Container>
+    )
 }
 
-export default App;
+export default App
