@@ -3,9 +3,9 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import {Form, Input} from 'semantic-ui-react'
 
-const NativeDateTimePicker = ({selectedDate, handleDateChange}) => {
+const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
     // textfield requires datevalue as string
-    const dateString = selectedDate.format("Y-MM-DDThh:mm")
+    // const dateString = selectedDateTime.format("Y-MM-DDThh:mm:ss")
 
     const handleChange = (event) => {
         console.log("NativeDateTimePicker change: " + event.target.value)
@@ -13,14 +13,14 @@ const NativeDateTimePicker = ({selectedDate, handleDateChange}) => {
         handleDateChange(moment(event.target.value))
     }
 
-    // min: "2015-07-30T15:26",
+    // min: "2015-07-30T15:26:28",
     return (
         <Form>
-            <Form.Field inline>
+            <Form.Field>
                 <label>Date/Time:</label>
                 <Input
                     type="datetime-local"
-                    value={dateString}
+                    value={selectedDateTime.format("Y-MM-DDThh:mm:ss")}
                     onChange={handleChange}
                 />
             </Form.Field>
@@ -29,7 +29,7 @@ const NativeDateTimePicker = ({selectedDate, handleDateChange}) => {
 }
 
 NativeDateTimePicker.propTypes = {
-    selectedDate: PropTypes.object.isRequired,
+    selectedDateTime: PropTypes.object.isRequired,
     handleDateChange: PropTypes.func.isRequired
 }
 

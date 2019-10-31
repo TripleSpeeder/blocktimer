@@ -3,15 +3,16 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import {Form, Input, Message} from 'semantic-ui-react'
 
-const TimestampInput = ({selectedDate, handleDateChange}) => {
+const TimestampInput = ({selectedDateTime, handleDateChange}) => {
     const minTimeStamp = 1438269988
-    const [timestamp, setTimestamp] = useState(selectedDate.unix())
+    const [timestamp, setTimestamp] = useState(selectedDateTime.unix())
     const [valid, setValid] = useState(true)
 
+    // use useEffect hook to update state variable when props change
     useEffect(()=>{
-        console.log("Effect! date: " + selectedDate.format())
-        setTimestamp(selectedDate.unix())
-    }, [selectedDate])
+        setTimestamp(selectedDateTime.unix())
+        setValid(selectedDateTime.unix() >= minTimeStamp )
+    }, [selectedDateTime])
 
     const handleChange = (event) => {
         let newTimeStamp = event.target.value
@@ -29,7 +30,7 @@ const TimestampInput = ({selectedDate, handleDateChange}) => {
 
     return (
         <Form error={valid?false:true}>
-            <Form.Field inline>
+            <Form.Field>
                 <label>Timestamp: </label>
                 <Input
                     type={'number'}
@@ -40,7 +41,7 @@ const TimestampInput = ({selectedDate, handleDateChange}) => {
                 />
                 <Message
                     error
-                    content='Timstamp too small'
+                    content='Timstamp too small. Ethereum block #1 was mined at 1438269988.'
                 />
             </Form.Field>
         </Form>
@@ -48,7 +49,7 @@ const TimestampInput = ({selectedDate, handleDateChange}) => {
 }
 
 TimestampInput.propTypes = {
-    selectedDate: PropTypes.object.isRequired,
+    selectedDateTime: PropTypes.object.isRequired,
     handleDateChange: PropTypes.func.isRequired
 }
 

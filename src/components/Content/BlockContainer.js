@@ -1,13 +1,8 @@
 import React from 'react';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
-import {CardContent} from '@material-ui/core'
-import Card from '@material-ui/core/Card'
-import CardHeader from '@material-ui/core/CardHeader'
-import CardActions from '@material-ui/core/CardActions'
-import IconButton from '@material-ui/core/IconButton'
-import Avatar from '@material-ui/core/Avatar'
 import moment from 'moment'
+import {Button, Card, Icon, Menu} from 'semantic-ui-react'
 
 const GET_BLOCK = gql`
   query Block($timestamp: Int!) {
@@ -31,37 +26,38 @@ function BlockContainer({timestamp}) {
         //content = (<div> Error! {error.message}</div>)
     }
 
-    const timestamp_display = moment.unix(data.block.timestamp).format("MMM-DD-Y, HH:mm:ss")
+    // const timestamp_display = moment.unix(data.block.timestamp).format("MMM-DD-Y, HH:mm:ss")
 
     return (
-        <Card>
-            <CardHeader
-                title={"Block #"+data.block.height}
-                subheader={data.block.hash}
-            />
-            <CardContent>
-                Mined on {timestamp_display}
-            </CardContent>
-            <CardActions>
-                <IconButton
-                    aria-label="View on Etherscan"
-                    title="View on Etherscan"
+        <Card fluid>
+            <Card.Content>
+                <Card.Header>
+                    {"Block #"+data.block.height}
+                </Card.Header>
+                <Card.Description>
+                    {data.block.hash}
+                </Card.Description>
+            </Card.Content>
+            <Card.Content extra>
+                <div className='ui two buttons'>
+                <Button
+                    basic
+                    color={'green'}
                     href={"https://etherscan.io/block/"+data.block.height}
-                    target='_blank'
-                    rel='noopener'
+                    target={'_blank'}
                 >
-                    <Avatar>ES</Avatar>
-                </IconButton>
-                <IconButton
-                    aria-label="View on Etherchain"
-                    title="View on Etherchain"
+                    view on Etherscan.io
+                </Button>
+                <Button
+                    basic
+                    color={'green'}
                     href={"https://www.etherchain.org/block/"+data.block.hash}
-                    target='_blank'
-                    rel='noopener'
+                    target={'_blank'}
                 >
-                    <Avatar>EC</Avatar>
-                </IconButton>
-            </CardActions>
+                    view on Etherchain.org
+                </Button>
+                </div>
+            </Card.Content>
         </Card>
     )
 }

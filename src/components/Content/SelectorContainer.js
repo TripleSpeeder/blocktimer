@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import {Grid, Icon} from 'semantic-ui-react'
+import {Button, Card, Grid, Icon} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import moment from 'moment'
 import TimestampInput from './TimestampInput'
+import BlockContainer from './BlockContainer'
 
 const SelectorContainer = () => {
     const [selectedDateTime, setDateTime] = useState(moment())
@@ -18,29 +19,33 @@ const SelectorContainer = () => {
             columns={12}
         >
             <Grid.Row verticalAlign={'middle'}>
-                <Grid.Column width={5} textAlign={'right'}>
+                <Grid.Column width={5} textAlign={'center'}>
                     <NativeDateTimePicker
                         handleDateChange={handleDateTimeChange}
-                        selectedDate={selectedDateTime}/>
+                        selectedDateTime={selectedDateTime}/>
                 </Grid.Column>
                 <Grid.Column width={2} textAlign={'center'}>
                     <Icon name={'arrows alternate horizontal'}/>
                 </Grid.Column>
-                <Grid.Column width={5} textAlign={'left'}>
+                <Grid.Column width={5} textAlign={'center'}>
                     <TimestampInput
                         handleDateChange={handleDateTimeChange}
-                        selectedDate={selectedDateTime}/>
+                        selectedDateTime={selectedDateTime}/>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column textAlign={'right'}>
-                    prev
+                <Grid.Column textAlign={'right'} verticalAlign={'middle'} >
+                    <Button icon size={'large'}>
+                        <Icon name={'caret left'}/>
+                    </Button>
                 </Grid.Column>
-                <Grid.Column textAlign={'center'} width={6}>
-                    Block info here or "loading"
+                <Grid.Column textAlign={'center'} width={10}>
+                    <BlockContainer timestamp={selectedDateTime.unix()} />
                 </Grid.Column>
-                <Grid.Column textAlign={'left'}>
-                    next
+                <Grid.Column textAlign={'left'} verticalAlign={'middle'} >
+                    <Button icon size={'large'}>
+                        <Icon name={'caret right'}/>
+                    </Button>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

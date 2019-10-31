@@ -40,7 +40,7 @@ function DateTimePickerContainer({selectedDate, handleDateChange}) {
             {useExtendedPicker ? (
                 <DateTimePicker selectedDate={selectedDate} handleDateChange={handleDateChange}/>
                 ):(
-                <NativeDateTimePicker selectedDate={selectedDate} handleDateChange={handleDateChange}/>
+                <NativeDateTimePicker selectedDateTime={selectedDate} handleDateChange={handleDateChange}/>
                 )
             }
         </Paper>
