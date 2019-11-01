@@ -1,6 +1,5 @@
 import React from 'react'
 import {MyHeader} from './Layouts'
-import Content from './Content'
 import {Container} from 'semantic-ui-react'
 import SelectorContainer from './Content/SelectorContainer'
 
