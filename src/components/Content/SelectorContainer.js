@@ -13,6 +13,10 @@ const SelectorContainer = () => {
         setDateTime(newDate)
     }
 
+    const handleBlockHeightChange = (newHeight) => {
+        console.log("Container new height: " + newHeight)
+    }
+
     return (
         <Grid
             centered
@@ -34,18 +38,8 @@ const SelectorContainer = () => {
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column textAlign={'right'} verticalAlign={'middle'} >
-                    <Button icon size={'large'}>
-                        <Icon name={'caret left'}/>
-                    </Button>
-                </Grid.Column>
-                <Grid.Column textAlign={'center'} width={10}>
+                <Grid.Column textAlign={'center'} width={12}>
                     <BlockContainer timestamp={selectedDateTime.unix()} />
-                </Grid.Column>
-                <Grid.Column textAlign={'left'} verticalAlign={'middle'} >
-                    <Button icon size={'large'}>
-                        <Icon name={'caret right'}/>
-                    </Button>
                 </Grid.Column>
             </Grid.Row>
         </Grid>
