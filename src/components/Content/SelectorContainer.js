@@ -1,41 +1,19 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {Grid, Icon} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import moment from 'moment'
-import gql from 'graphql-tag';
 import TimestampInput from './TimestampInput'
 import {useQuery} from '@apollo/react-hooks'
 import BlockDisplay from './BlockDisplay'
-
-const GET_BLOCK = gql`
-  query Block($timestamp: Int, $height: Int) {
-      block(timestamp: $timestamp, height: $height) {
-        timestamp
-        height
-        hash
-      }
-  }
-`;
+import BlockContainer from './BlockContainer'
 
 
 const SelectorContainer = () => {
     const [selectedDateTime, setDateTime] = useState(moment())
 
-    const {loading, error, data, refetch} = useQuery(GET_BLOCK, {
-        variables: {
-            timestamp: selectedDateTime.unix(),
-        }
-    })
-    const block = (data && data.block) ? data.block : null
-
     const handleDateTimeChange = (newDate) => {
         console.log("Container new date: " + newDate.format() + " (" + newDate.unix()+")")
         setDateTime(newDate)
-    }
-
-    const handleBlockHeightChange = (newHeight) => {
-        console.log("Container new height: " + newHeight)
-        refetch({ variables: { height: newHeight } })
     }
 
     return (
@@ -60,10 +38,7 @@ const SelectorContainer = () => {
             </Grid.Row>
             <Grid.Row>
                 <Grid.Column textAlign={'center'} width={12}>
-                    <BlockDisplay block={block}
-                                  loading={loading}
-                                  error={error}
-                                  handleHeightChange={handleBlockHeightChange}/>
+                    <BlockContainer timestamp={selectedDateTime.unix()}/>
                 </Grid.Column>
             </Grid.Row>
         </Grid>

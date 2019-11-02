@@ -1,15 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {Button, Card, Input, Placeholder} from 'semantic-ui-react'
+import React  from 'react'
+import {Button, Card, Placeholder} from 'semantic-ui-react'
+import moment from 'moment'
 
 
-function BlockDisplay({block, loading, error, handleHeightChange}) {
-    const [height, setHeight] = useState(block ? block.height : 0)
-
-    // use useEffect hook to update state variable when props change
-    useEffect(()=>{
-        if (block && block.height)
-            setHeight(block.height)
-    }, [block])
+function BlockDisplay({height, hash, timestamp, loading, error, diff}) {
 
     if (loading) {
         return (
@@ -18,17 +12,21 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
                     <Card.Header>
                         <Placeholder fluid>
                             <Placeholder.Header>
-                                <Placeholder.Line/>
+                                <Placeholder.Line length={'full'}/>
                             </Placeholder.Header>
-                            <Placeholder.Paragraph>
-                                <Placeholder.Line/>
-                            </Placeholder.Paragraph>
                         </Placeholder>
                     </Card.Header>
+                    <Card.Meta>
+                        <Placeholder fluid>
+                            <Placeholder.Paragraph>
+                                <Placeholder.Line length={'full'}/>
+                            </Placeholder.Paragraph>
+                        </Placeholder>
+                    </Card.Meta>
                     <Card.Description>
                         <Placeholder fluid>
                             <Placeholder.Paragraph>
-                                <Placeholder.Line/>
+                                <Placeholder.Line length={'full'}/>
                             </Placeholder.Paragraph>
                         </Placeholder>
                     </Card.Description>
@@ -55,7 +53,7 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
         )
     } else if (error) {
         return (
-            <Card>
+            <Card fluid color='red'>
                 <Card.Content>
                     <Card.Header>
                         Error!
@@ -86,30 +84,17 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
         )
     }
 
-    // trigger loading of block depending on local blockheight change
-    const onChange = (event) => {
-        const height = event.target.value
-        setHeight(height)
-        if (height && (height > 0))
-            handleHeightChange(height)
-    }
-
     return (
         <Card fluid>
             <Card.Content>
                 <Card.Header>
-                    Block #&nbsp;
-                    <Input
-                        size={'huge'}
-                        type={'number'}
-                        transparent
-                        value={height}
-                        min={1}
-                        onChange={onChange}
-                    />
+                    Block #{height}
                 </Card.Header>
+                <Card.Meta>
+                    {hash}
+                </Card.Meta>
                 <Card.Description>
-                    {block.hash}
+                    Mined on {moment.unix(timestamp).format("Y-MM-DDThh:mm:ss")} (Delta: {diff} seconds)
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
@@ -117,7 +102,7 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
                 <Button
                     basic
                     color={'green'}
-                    href={"https://etherscan.io/block/"+block.height}
+                    href={"https://etherscan.io/block/"+height}
                     target={'_blank'}
                 >
                     view on Etherscan.io
@@ -125,7 +110,7 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
                 <Button
                     basic
                     color={'green'}
-                    href={"https://www.etherchain.org/block/"+block.hash}
+                    href={"https://www.etherchain.org/block/"+hash}
                     target={'_blank'}
                 >
                     view on Etherchain.org
