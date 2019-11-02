@@ -11,7 +11,8 @@ const TimestampInput = ({selectedDateTime, handleDateChange}) => {
     // use useEffect hook to update state variable when props change
     useEffect(()=>{
         setTimestamp(selectedDateTime.unix())
-        setValid(selectedDateTime.unix() >= minTimeStamp )
+        // assume that timestamp coming in via props is always valid. Is this secure?
+        setValid(true)
     }, [selectedDateTime])
 
     const handleChange = (event) => {
