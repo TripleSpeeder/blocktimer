@@ -1,10 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {Grid, Icon, Segment} from 'semantic-ui-react'
+import React, {useState} from 'react'
+import {Grid, Segment} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import moment from 'moment'
 import TimestampInput from './TimestampInput'
-import {useQuery} from '@apollo/react-hooks'
-import BlockDisplay from './BlockDisplay'
 import BlockContainer from './BlockContainer'
 
 

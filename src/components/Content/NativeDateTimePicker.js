@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import {Form, Input, Message} from 'semantic-ui-react'
@@ -7,11 +7,18 @@ const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
     const [dateTime, setDateTime] = useState(selectedDateTime.format("Y-MM-DDThh:mm:ss"))
     const [valid, setValid] = useState(true)
     const [errorMessage, setErrorMessage] = useState()
+
+    // use useEffect hook to update state variable when props change
+    useEffect(()=>{
+        setDateTime(selectedDateTime.format("Y-MM-DDThh:mm:ss"))
+        // assume that date coming in via props is always valid. Is this secure?
+        setValid(true)
+    }, [selectedDateTime])
+
     const minMoment = moment("2015-07-30T15:26:28")
 
     const handleChange = (event) => {
         const dateTimeString = event.target.value
-        console.log("NativeDateTimePicker change: " + dateTimeString)
         setDateTime(dateTimeString)
         const dateTimeAsMoment = moment(dateTimeString)
         // only valid date/time will be passed on to controller
