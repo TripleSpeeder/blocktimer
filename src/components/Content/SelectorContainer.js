@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Grid, Icon} from 'semantic-ui-react'
+import {Grid, Icon, Segment} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import moment from 'moment'
 import TimestampInput from './TimestampInput'
@@ -28,7 +28,7 @@ const SelectorContainer = () => {
                         selectedDateTime={selectedDateTime}/>
                 </Grid.Column>
                 <Grid.Column width={2} textAlign={'center'}>
-                    <Icon name={'arrows alternate horizontal'}/>
+                    <Segment basic size={'massive'}>or</Segment>
                 </Grid.Column>
                 <Grid.Column width={5} textAlign={'center'}>
                     <TimestampInput
