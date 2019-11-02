@@ -1,28 +1,56 @@
-import React from 'react'
+import React, {useState} from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
-import {Form, Input} from 'semantic-ui-react'
+import {Form, Input, Message} from 'semantic-ui-react'
 
 const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
-    // textfield requires datevalue as string
-    // const dateString = selectedDateTime.format("Y-MM-DDThh:mm:ss")
+    const [dateTime, setDateTime] = useState(selectedDateTime.format("Y-MM-DDThh:mm:ss"))
+    const [valid, setValid] = useState(true)
+    const [errorMessage, setErrorMessage] = useState()
+    const minMoment = moment("2015-07-30T15:26:28")
 
     const handleChange = (event) => {
-        console.log("NativeDateTimePicker change: " + event.target.value)
-        // If input is valid convert date string to moment.js instance before passing on
-        handleDateChange(moment(event.target.value))
+        const dateTimeString = event.target.value
+        console.log("NativeDateTimePicker change: " + dateTimeString)
+        setDateTime(dateTimeString)
+        const dateTimeAsMoment = moment(dateTimeString)
+        // only valid date/time will be passed on to controller
+        if (dateTimeAsMoment.isValid()) {
+            if (dateTimeAsMoment.isSameOrAfter(minMoment)) {
+                if (dateTimeAsMoment.isSameOrBefore(moment()))
+                {
+                    setValid(true)
+                    handleDateChange(moment(event.target.value))
+                }
+                else {
+                    setValid(false)
+                    setErrorMessage("Date in future.")
+                }
+            }
+            else {
+                setValid(false)
+                setErrorMessage("Date too early. Ethereum block #1 was mined at 2015-07-30T15:26:28")
+            }
+        }
+        else {
+            setValid(false)
+            setErrorMessage("Could not parse date")
+        }
     }
 
-    // min: "2015-07-30T15:26:28",
     return (
-        <Form>
+        <Form error={!valid}>
             <Form.Field>
                 <label>Date/Time:</label>
                 <Input
                     type="datetime-local"
                     step="1"
-                    value={selectedDateTime.format("Y-MM-DDThh:mm:ss")}
+                    value={dateTime}
                     onChange={handleChange}
+                />
+                <Message
+                    error
+                    content={errorMessage}
                 />
             </Form.Field>
         </Form>

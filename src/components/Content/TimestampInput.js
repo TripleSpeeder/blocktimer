@@ -29,7 +29,7 @@ const TimestampInput = ({selectedDateTime, handleDateChange}) => {
     }
 
     return (
-        <Form error={valid?false:true}>
+        <Form error={!valid}>
             <Form.Field>
                 <label>Unix timestamp: </label>
                 <Input
