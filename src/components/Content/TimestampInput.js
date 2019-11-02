@@ -31,7 +31,7 @@ const TimestampInput = ({selectedDateTime, handleDateChange}) => {
     return (
         <Form error={valid?false:true}>
             <Form.Field>
-                <label>Timestamp: </label>
+                <label>Unix timestamp: </label>
                 <Input
                     type={'number'}
                     placeholder='Unix timestamp'

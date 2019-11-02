@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import {Form, Input} from 'semantic-ui-react'
@@ -20,6 +20,7 @@ const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
                 <label>Date/Time:</label>
                 <Input
                     type="datetime-local"
+                    step="1"
                     value={selectedDateTime.format("Y-MM-DDThh:mm:ss")}
                     onChange={handleChange}
                 />

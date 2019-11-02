@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Button, Card, Input} from 'semantic-ui-react'
+import {Button, Card, Input, Placeholder} from 'semantic-ui-react'
 
 
 function BlockDisplay({block, loading, error, handleHeightChange}) {
@@ -12,7 +12,47 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
     }, [block])
 
     if (loading) {
-        return (<Card>Loading...</Card>)
+        return (
+            <Card fluid>
+                <Card.Content>
+                    <Card.Header>
+                        <Placeholder fluid>
+                            <Placeholder.Header>
+                                <Placeholder.Line/>
+                            </Placeholder.Header>
+                            <Placeholder.Paragraph>
+                                <Placeholder.Line/>
+                            </Placeholder.Paragraph>
+                        </Placeholder>
+                    </Card.Header>
+                    <Card.Description>
+                        <Placeholder fluid>
+                            <Placeholder.Paragraph>
+                                <Placeholder.Line/>
+                            </Placeholder.Paragraph>
+                        </Placeholder>
+                    </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <div className='ui two buttons'>
+                        <Button
+                            basic
+                            color={'green'}
+                            disabled
+                        >
+                            view on Etherscan.io
+                        </Button>
+                        <Button
+                            basic
+                            color={'green'}
+                            disabled
+                        >
+                            view on Etherchain.org
+                        </Button>
+                    </div>
+                </Card.Content>
+            </Card>
+        )
     } else if (error) {
         return (
             <Card>
@@ -23,6 +63,24 @@ function BlockDisplay({block, loading, error, handleHeightChange}) {
                     <Card.Description>
                         {error.message}
                     </Card.Description>
+                </Card.Content>
+                <Card.Content extra>
+                    <div className='ui two buttons'>
+                        <Button
+                            basic
+                            color={'green'}
+                            disabled
+                        >
+                            view on Etherscan.io
+                        </Button>
+                        <Button
+                            basic
+                            color={'green'}
+                            disabled
+                        >
+                            view on Etherchain.org
+                        </Button>
+                    </div>
                 </Card.Content>
             </Card>
         )
