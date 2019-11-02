@@ -29,7 +29,7 @@ const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
             }
             else {
                 setValid(false)
-                setErrorMessage("Date too early. Ethereum block #1 was mined at 2015-07-30T15:26:28")
+                setErrorMessage(`Date too early. Ethereum block #1 was mined at ${minMoment.format("Y-MM-DDThh:mm:ss")}`)
             }
         }
         else {
