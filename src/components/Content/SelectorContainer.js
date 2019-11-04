@@ -1,46 +1,73 @@
 import React, {useState} from 'react'
 import {Grid, Segment} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
-import moment from 'moment'
+import getUnixTime from 'date-fns/getUnixTime'
 import TimestampInput from './TimestampInput'
 import BlockContainer from './BlockContainer'
+import PropTypes from 'prop-types'
 
+const SelectorContainer = ({showTimestampInput}) => {
+    const [selectedTimestamp, setSelectedTimestamp] = useState(getUnixTime(new Date()))
 
-const SelectorContainer = () => {
-    const [selectedDateTime, setDateTime] = useState(moment())
-
-    const handleDateTimeChange = (newDate) => {
-        console.log("Container new date: " + newDate.format() + " (" + newDate.unix()+")")
-        setDateTime(newDate)
+    const handleTimestampChange = (newTimestamp) => {
+        setSelectedTimestamp(newTimestamp)
     }
 
-    return (
-        <Grid
-            centered
-            columns={12}
-        >
-            <Grid.Row verticalAlign={'middle'}>
-                <Grid.Column width={5} textAlign={'center'}>
-                    <NativeDateTimePicker
-                        handleDateChange={handleDateTimeChange}
-                        selectedDateTime={selectedDateTime}/>
-                </Grid.Column>
-                <Grid.Column width={2} textAlign={'center'}>
-                    <Segment basic size={'massive'}>or</Segment>
-                </Grid.Column>
-                <Grid.Column width={5} textAlign={'center'}>
-                    <TimestampInput
-                        handleDateChange={handleDateTimeChange}
-                        selectedDateTime={selectedDateTime}/>
-                </Grid.Column>
-            </Grid.Row>
-            <Grid.Row>
-                <Grid.Column textAlign={'center'} width={12}>
-                    <BlockContainer timestamp={selectedDateTime.unix()}/>
-                </Grid.Column>
-            </Grid.Row>
-        </Grid>
-    )
+    if (showTimestampInput) {
+        return (
+            <Grid
+                stackable
+                centered
+                columns={12}
+            >
+                <Grid.Row verticalAlign={'middle'}>
+                    <Grid.Column width={6} textAlign={'center'}>
+                        <NativeDateTimePicker
+                            handleDateChange={handleTimestampChange}
+                            selectedTimestamp={selectedTimestamp}/>
+                    </Grid.Column>
+                    <Grid.Column width={6} textAlign={'center'}>
+                        <TimestampInput
+                            handleTimestampChange={handleTimestampChange}
+                            selectedTimestamp={selectedTimestamp}/>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column textAlign={'center'} width={12}>
+                        <BlockContainer timestamp={selectedTimestamp}/>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        )
+    } else {
+        return (
+            <Grid
+                centered
+                columns={12}
+            >
+                <Grid.Row verticalAlign={'middle'}>
+                    <Grid.Column width={12} textAlign={'center'}>
+                        <NativeDateTimePicker
+                            handleDateChange={handleTimestampChange}
+                            selectedTimestamp={selectedTimestamp}/>
+                    </Grid.Column>
+                </Grid.Row>
+                <Grid.Row>
+                    <Grid.Column textAlign={'center'} width={12}>
+                        <BlockContainer timestamp={selectedTimestamp}/>
+                    </Grid.Column>
+                </Grid.Row>
+            </Grid>
+        )
+    }
 }
+
+SelectorContainer.propTypes = {
+    showTimestampInput: PropTypes.bool,
+}
+
+SelectorContainer.defaultProps = {
+    showTimestampInput: true
+};
 
 export default SelectorContainer

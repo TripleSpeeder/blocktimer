@@ -1,31 +1,28 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import {Form, Input, Message} from 'semantic-ui-react'
 
-const TimestampInput = ({selectedDateTime, handleDateChange}) => {
+const TimestampInput = ({selectedTimestamp, handleTimestampChange}) => {
     const minTimeStamp = 1438269988
-    const [timestamp, setTimestamp] = useState(selectedDateTime.unix())
+    const [timestamp, setTimestamp] = useState(selectedTimestamp)
     const [valid, setValid] = useState(true)
 
     // use useEffect hook to update state variable when props change
     useEffect(()=>{
-        setTimestamp(selectedDateTime.unix())
+        setTimestamp(selectedTimestamp)
         // assume that timestamp coming in via props is always valid. Is this secure?
         setValid(true)
-    }, [selectedDateTime])
+    }, [selectedTimestamp])
 
     const handleChange = (event) => {
-        let newTimeStamp = event.target.value
-        console.log("Timestamp change: " + newTimeStamp)
+        let newTimeStamp = parseInt(event.target.value)
         setTimestamp(newTimeStamp)
         if (newTimeStamp < minTimeStamp) {
             setValid(false)
         }
         else {
             setValid(true)
-            // valid timestamp, convert to moment.js instance and call handleDateChange()
-            handleDateChange(moment.unix(newTimeStamp))
+            handleTimestampChange(newTimeStamp)
         }
     }
 
@@ -42,7 +39,7 @@ const TimestampInput = ({selectedDateTime, handleDateChange}) => {
                 />
                 <Message
                     error
-                    content='Timstamp too small. Ethereum block #1 was mined at 1438269988.'
+                    content={'Timstamp too small. Ethereum block #1 was mined at ' + minTimeStamp}
                 />
             </Form.Field>
         </Form>
@@ -50,8 +47,8 @@ const TimestampInput = ({selectedDateTime, handleDateChange}) => {
 }
 
 TimestampInput.propTypes = {
-    selectedDateTime: PropTypes.object.isRequired,
-    handleDateChange: PropTypes.func.isRequired
+    selectedTimestamp: PropTypes.number.isRequired,
+    handleTimestampChange: PropTypes.func.isRequired
 }
 
 export default TimestampInput

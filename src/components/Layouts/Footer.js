@@ -1,23 +1,34 @@
 import React from 'react'
-import Paper from '@material-ui/core/Paper'
-import Tabs from '@material-ui/core/Tabs'
-import Tab from '@material-ui/core/Tab'
+import {Button, Grid, Icon, List} from 'semantic-ui-react'
 
 
 function Footer(props) {
     return (
-        <Paper>
-            <Tabs
-                value={0}
-                indicatorColor={'primary'}
-                textColor={'primary'}
-                centered
-            >
-                <Tab label='Item One'/>
-                <Tab label='Item Two'/>
-                <Tab label='Item Three'/>
-            </Tabs>
-        </Paper>
+        <Grid columns={12} centered>
+            <Grid.Row>
+                <Grid.Column width={12} textAlign={'center'}>
+                    <List horizontal>
+                        <List.Item>
+                            <Button
+                                as='a'
+                                href={'https://github.com/TripleSpeeder'}
+                                size='tiny'
+                                circular
+                                icon='github'/>
+                        </List.Item>
+                        <List.Item>
+                            <Button
+                                as='a'
+                                href={'mailto:michael@m-bauer.org'}
+                                size='tiny'
+                                circular
+                                icon='mail'
+                            />
+                        </List.Item>
+                    </List>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
     )
 }
 

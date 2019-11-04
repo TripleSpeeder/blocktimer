@@ -1,47 +1,40 @@
 import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import moment from 'moment'
-import {Form, Input, Message} from 'semantic-ui-react'
+import {Form, Message} from 'semantic-ui-react'
+import getUnixTime from 'date-fns/getUnixTime'
+import fromUnixTime from 'date-fns/fromUnixTime'
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
-    const [dateTime, setDateTime] = useState(selectedDateTime.format("Y-MM-DDTHH:mm:ss"))
+
+const NativeDateTimePicker = ({selectedTimestamp, handleDateChange}) => {
+    const [timestamp, setTimestamp] = useState(selectedTimestamp)
     const [valid, setValid] = useState(true)
     const [errorMessage, setErrorMessage] = useState()
 
     // use useEffect hook to update state variable when props change
     useEffect(()=>{
-        setDateTime(selectedDateTime.format("Y-MM-DDTHH:mm:ss"))
+        setTimestamp(selectedTimestamp)
         // assume that date coming in via props is always valid. Is this secure?
         setValid(true)
-    }, [selectedDateTime])
+    }, [selectedTimestamp])
 
-    const minMoment = moment("2015-07-30T15:26:28")
+    const minTimeStamp = 1438269988
+    const minDateTime = fromUnixTime(minTimeStamp)
 
-    const handleChange = (event) => {
-        const dateTimeString = event.target.value
-        setDateTime(dateTimeString)
-        const dateTimeAsMoment = moment(dateTimeString)
-        // only valid date/time will be passed on to controller
-        if (dateTimeAsMoment.isValid()) {
-            if (dateTimeAsMoment.isSameOrAfter(minMoment)) {
-                if (dateTimeAsMoment.isSameOrBefore(moment()))
-                {
-                    setValid(true)
-                    handleDateChange(moment(event.target.value))
-                }
-                else {
-                    setValid(false)
-                    setErrorMessage("Date in future.")
-                }
-            }
-            else {
-                setValid(false)
-                setErrorMessage(`Date too early. Ethereum block #1 was mined at ${minMoment.format("Y-MM-DDThh:mm:ss")}`)
-            }
-        }
-        else {
+    const handleChange = (newDate) => {
+        const newTimestamp = getUnixTime(newDate)
+        setTimestamp(newTimestamp)
+        if (newTimestamp < minTimeStamp) {
             setValid(false)
-            setErrorMessage("Could not parse date")
+            setErrorMessage(`Date too early. Ethereum block #1 was mined at ${minDateTime}`)
+        } else if (newTimestamp > getUnixTime(new Date())) {
+            setValid(false)
+            setErrorMessage("Date in future.")
+        } else {
+            // All good!
+            setValid(true)
+            handleDateChange(newTimestamp)
         }
     }
 
@@ -49,10 +42,13 @@ const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
         <Form error={!valid}>
             <Form.Field>
                 <label>Date/Time:</label>
-                <Input
-                    type="datetime-local"
-                    step="1"
-                    value={dateTime}
+                <DatePicker
+                    selected={fromUnixTime(timestamp)}
+                    showTimeInput
+                    showYearDropdown
+                    dateFormat="yyyy-MM-dd HH:mm:ss OOOO"
+                    timeFormat="HH:mm:ss"
+                    minDate={minDateTime}
                     onChange={handleChange}
                 />
                 <Message
@@ -65,7 +61,7 @@ const NativeDateTimePicker = ({selectedDateTime, handleDateChange}) => {
 }
 
 NativeDateTimePicker.propTypes = {
-    selectedDateTime: PropTypes.object.isRequired,
+    selectedTimestamp: PropTypes.number.isRequired,
     handleDateChange: PropTypes.func.isRequired
 }
 

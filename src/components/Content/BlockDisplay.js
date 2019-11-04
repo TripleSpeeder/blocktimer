@@ -1,7 +1,7 @@
 import React  from 'react'
-import {Button, Card, Placeholder} from 'semantic-ui-react'
-import moment from 'moment'
-
+import {Button, Card, Image, Placeholder, Popup} from 'semantic-ui-react'
+import fromUnixTime from 'date-fns/fromUnixTime'
+import format from 'date-fns/format'
 
 function BlockDisplay({height, hash, timestamp, loading, error, diff}) {
 
@@ -94,28 +94,56 @@ function BlockDisplay({height, hash, timestamp, loading, error, diff}) {
                     {hash}
                 </Card.Meta>
                 <Card.Description>
-                    Mined on {moment.unix(timestamp).format("Y-MM-DDThh:mm:ss")} (Delta: {diff} seconds)
+                    Mined on {format(fromUnixTime(timestamp),"yyyy-MM-dd HH:mm OOOO")} (Delta: {diff} seconds)
                 </Card.Description>
             </Card.Content>
             <Card.Content extra>
-                <div className='ui two buttons'>
-                <Button
-                    basic
-                    color={'green'}
-                    href={"https://etherscan.io/block/"+height}
-                    target={'_blank'}
-                >
-                    view on Etherscan.io
-                </Button>
-                <Button
-                    basic
-                    color={'green'}
-                    href={"https://www.etherchain.org/block/"+hash}
-                    target={'_blank'}
-                >
-                    view on Etherchain.org
-                </Button>
-                </div>
+                    <Popup
+                        trigger={
+                            <Button
+                                basic
+                                compact
+                                size='mini'
+                                href={"https://etherscan.io/block/" + height}
+                                target={'_blank'}
+                            >
+                                <Image
+                                    size={'mini'}
+                                    src='https://etherscan.io/images/favicon2.ico'/>
+                            </Button>
+                        }
+                        content={'Show on Etherscan.io'}
+                    />
+                    <Popup
+                        trigger={
+                            <Button
+                                compact
+                                basic
+                                size='mini'
+                                href={"https://www.etherchain.org/block/"+hash}
+                                target={'_blank'}
+                            >
+                                <Image
+                                    size={'mini'}
+                                    src='https://www.etherchain.org/images/favicon.png'/>
+                            </Button>
+                        }
+                        content={'Show on Etherchain.org'}
+                    />
+                    <Popup
+                        trigger={
+                            <Button
+                                basic
+                                compact
+                                size='mini'
+                                href={"https://blockchair.com/ethereum/block/"+height}
+                                target={'_blank'}
+                            >
+                                <Image size={'mini'} src='https://blockchair.com/favicon.ico'/>
+                            </Button>
+                        }
+                        content={'Show on blockchair.com'}
+                    />
             </Card.Content>
         </Card>
     )

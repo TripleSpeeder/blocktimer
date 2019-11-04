@@ -1,14 +1,15 @@
 import React from 'react'
-import {MyHeader} from './Layouts'
+import {MyHeader, Footer} from './Layouts'
 import {Container} from 'semantic-ui-react'
 import SelectorContainer from './Content/SelectorContainer'
 
 
 function App() {
     return (
-            <Container style={{ marginTop: '3em' }}>
+            <Container style={{ marginTop: '8em' }}>
                 <MyHeader/>
                 <SelectorContainer/>
+                <Footer/>
             </Container>
     )
 }
