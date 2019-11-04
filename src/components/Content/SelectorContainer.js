@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Grid, Segment} from 'semantic-ui-react'
+import {Grid} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import getUnixTime from 'date-fns/getUnixTime'
 import TimestampInput from './TimestampInput'

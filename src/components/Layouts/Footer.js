@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Grid, Icon, List} from 'semantic-ui-react'
+import {Button, Grid, List} from 'semantic-ui-react'
 
 
 function Footer(props) {
