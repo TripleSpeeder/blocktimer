@@ -6,7 +6,7 @@ import SelectorContainer from './Content/SelectorContainer'
 
 function App() {
     return (
-            <Container style={{ marginTop: '8em' }}>
+            <Container style={{ marginTop: '1em' }}>
                 <MyHeader/>
                 <SelectorContainer/>
                 <Footer/>

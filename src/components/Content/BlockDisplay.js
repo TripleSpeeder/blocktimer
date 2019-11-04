@@ -90,7 +90,7 @@ function BlockDisplay({height, hash, timestamp, loading, error, diff}) {
                 <Card.Header>
                     Block #{height}
                 </Card.Header>
-                <Card.Meta>
+                <Card.Meta style={{wordWrap: 'break-word'}}>
                     {hash}
                 </Card.Meta>
                 <Card.Description>
