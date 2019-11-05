@@ -1,8 +1,8 @@
 import React from 'react'
-import {Button, Grid, List} from 'semantic-ui-react'
+import {Button, Grid, Icon, List} from 'semantic-ui-react'
 
 
-function Footer(props) {
+function Footer() {
     return (
         <Grid columns={12} centered>
             <Grid.Row>
@@ -24,6 +24,9 @@ function Footer(props) {
                                 circular
                                 icon='mail'
                             />
+                        </List.Item>
+                        <List.Item>
+                            <span><Icon name={'copyright'}/> Michael Bauer</span>
                         </List.Item>
                     </List>
                 </Grid.Column>
