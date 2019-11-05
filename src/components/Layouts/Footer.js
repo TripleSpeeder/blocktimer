@@ -1,3 +1,4 @@
+import pkg from '../../../package.json'
 import React from 'react'
 import {Button, Grid, Icon, List, Segment} from 'semantic-ui-react'
 
@@ -8,6 +9,11 @@ function Footer() {
         <Grid columns={12} centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'center'}>
+                    <List horizontal floated={'right'}>
+                        <List.Item >
+                            <span style={{fontSize: '0.5rem'}}>v {pkg.version}</span>
+                        </List.Item>
+                    </List>
                     <List horizontal>
                         <List.Item>
                             <Button
