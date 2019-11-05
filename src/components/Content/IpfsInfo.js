@@ -24,7 +24,7 @@ const IpfsInfo = () => {
                 'can be updated in the ENS system, so using this domain will always point to the latest release.',
         },
         {
-            type: 'Native IPFS link',
+            type: 'Direct IPFS',
             uri: 'ipfs://QmXHWfbbU3A3HrSuEM9HFS842Vi6r3FmkXgwv4TzgnjPR1/',
             description: 'This works if your system supports native ipfs links. However note that the CID is static' +
                 ' and therefor is most likely not pointing to the latest release. Therefor this method is not recommended.',
@@ -49,7 +49,7 @@ const IpfsInfo = () => {
         <Grid columns={12} stackable centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'left'}>
-                    <Header size={'medium'} onClick={toggleDetails} style={{cursor:'pointer'}}>
+                    <Header size={'small'} onClick={toggleDetails} style={{cursor:'pointer'}}>
                         <Icon name={showDetails ? 'caret down' : 'caret right'}/>
                         <Header.Content>
                             IPFS info

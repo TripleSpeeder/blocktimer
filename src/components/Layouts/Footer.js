@@ -1,6 +1,6 @@
 import pkg from '../../../package.json'
 import React from 'react'
-import {Button, Grid, Icon, List, Segment} from 'semantic-ui-react'
+import {Button, Divider, Grid, Icon, List, Segment} from 'semantic-ui-react'
 
 
 function Footer() {
@@ -9,6 +9,7 @@ function Footer() {
         <Grid columns={12} centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'center'}>
+                    <Divider fitted></Divider>
                     <List horizontal floated={'right'}>
                         <List.Item >
                             <span style={{fontSize: '0.5rem'}}>v {pkg.version}</span>
@@ -33,7 +34,7 @@ function Footer() {
                             />
                         </List.Item>
                         <List.Item>
-                            <span><Icon name={'copyright'}/> Michael Bauer</span>
+                            <span style={{fontSize: '0.7rem'}}><Icon name={'copyright'}/> Michael Bauer</span>
                         </List.Item>
                     </List>
                 </Grid.Column>
