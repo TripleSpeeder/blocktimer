@@ -41,7 +41,7 @@ const IpfsInfo = () => {
 
     return (
         <Segment basic>
-        <Grid columns={12} centered>
+        <Grid columns={12} stackable centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'left'}>
                     <Header size={'medium'}>IPFS availability</Header>
