@@ -3,11 +3,16 @@ import {Accordion, Grid, Header, Icon, Item, Segment} from 'semantic-ui-react'
 
 const IpfsInfo = () => {
     const [activeIndex, setActiveIndex] = useState(-1)
+    const [showDetails, setShowDeteails] = useState(false)
 
     const handleClick = (e, titleProps) => {
         const {index} = titleProps
         const newIndex = activeIndex === index ? -1 : index
         setActiveIndex(newIndex)
+    }
+
+    const toggleDetails = () => {
+        setShowDeteails(!showDetails)
     }
 
     const listItems = [
@@ -44,12 +49,17 @@ const IpfsInfo = () => {
         <Grid columns={12} stackable centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'left'}>
-                    <Header size={'medium'}>IPFS availability</Header>
-                    <p>This site is hosted decentralized via <a href='https://ipfs.io' target='_blank' rel='noopener noreferrer'>IPFS</a>. It can
+                    <Header size={'medium'} onClick={toggleDetails} style={{cursor:'pointer'}}>
+                        <Icon name={showDetails ? 'caret down' : 'caret right'}/>
+                        <Header.Content>
+                            IPFS info
+                        </Header.Content>
+                    </Header>
+                    <p style={showDetails ? {} : {display: 'none'}}>This site is hosted decentralized via <a href='https://ipfs.io' target='_blank' rel='noopener noreferrer'>IPFS</a>. It can
                         be accessed in different ways:</p>
                 </Grid.Column>
             </Grid.Row>
-            <Grid.Row>
+            <Grid.Row style={showDetails ? {} : {display: 'none'}}>
                 <Grid.Column width={12}>
                     <Accordion styled fluid>
                         {listItems.map((entry, index) => {
