@@ -11,7 +11,7 @@ function Footer(props) {
                         <List.Item>
                             <Button
                                 as='a'
-                                href={'https://github.com/TripleSpeeder'}
+                                href={'https://github.com/TripleSpeeder/blocktimer'}
                                 size='tiny'
                                 circular
                                 icon='github'/>
