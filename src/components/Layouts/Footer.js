@@ -1,9 +1,10 @@
 import React from 'react'
-import {Button, Grid, Icon, List} from 'semantic-ui-react'
+import {Button, Grid, Icon, List, Segment} from 'semantic-ui-react'
 
 
 function Footer() {
     return (
+        <Segment basic>
         <Grid columns={12} centered>
             <Grid.Row>
                 <Grid.Column width={12} textAlign={'center'}>
@@ -32,6 +33,7 @@ function Footer() {
                 </Grid.Column>
             </Grid.Row>
         </Grid>
+        </Segment>
     )
 }
 

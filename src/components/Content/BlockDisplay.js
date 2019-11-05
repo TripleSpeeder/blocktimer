@@ -85,7 +85,7 @@ function BlockDisplay({height, hash, timestamp, loading, error, diff}) {
     }
 
     return (
-        <Card fluid>
+        <Card fluid color={'yellow'}>
             <Card.Content>
                 <Card.Header>
                     Block #{height}

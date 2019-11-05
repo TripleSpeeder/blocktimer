@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
-import {Accordion, Grid, Header, Icon, Item} from 'semantic-ui-react'
+import {Accordion, Grid, Header, Icon, Item, Segment} from 'semantic-ui-react'
 
 const IpfsInfo = () => {
-    const [activeIndex, setActiveIndex] = useState(0)
+    const [activeIndex, setActiveIndex] = useState(-1)
 
     const handleClick = (e, titleProps) => {
         const {index} = titleProps
@@ -40,16 +40,17 @@ const IpfsInfo = () => {
     ]
 
     return (
+        <Segment basic>
         <Grid columns={12} centered>
             <Grid.Row>
-                <Grid.Column width={11} textAlign={'left'}>
+                <Grid.Column width={12} textAlign={'left'}>
                     <Header size={'medium'}>IPFS availability</Header>
                     <p>This site is hosted decentralized via <a href='https://ipfs.io' target='_blank' rel='noopener noreferrer'>IPFS</a>. It can
                         be accessed in different ways:</p>
                 </Grid.Column>
             </Grid.Row>
             <Grid.Row>
-                <Grid.Column width={11}>
+                <Grid.Column width={12}>
                     <Accordion styled fluid>
                         {listItems.map((entry, index) => {
                             return (
@@ -83,6 +84,7 @@ const IpfsInfo = () => {
                 </Grid.Column>
             </Grid.Row>
         </Grid>
+        </Segment>
     )
 }
 

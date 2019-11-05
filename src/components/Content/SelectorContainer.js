@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {Grid} from 'semantic-ui-react'
+import {Grid, Segment} from 'semantic-ui-react'
 import NativeDateTimePicker from './NativeDateTimePicker'
 import getUnixTime from 'date-fns/getUnixTime'
 import TimestampInput from './TimestampInput'
@@ -15,6 +15,7 @@ const SelectorContainer = ({showTimestampInput}) => {
 
     if (showTimestampInput) {
         return (
+            <Segment basic>
             <Grid
                 stackable
                 centered
@@ -38,9 +39,11 @@ const SelectorContainer = ({showTimestampInput}) => {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+            </Segment>
         )
     } else {
         return (
+            <Segment basic>
             <Grid
                 centered
                 columns={12}
@@ -58,6 +61,7 @@ const SelectorContainer = ({showTimestampInput}) => {
                     </Grid.Column>
                 </Grid.Row>
             </Grid>
+            </Segment>
         )
     }
 }
