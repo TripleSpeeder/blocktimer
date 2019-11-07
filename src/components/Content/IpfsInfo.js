@@ -77,7 +77,7 @@ const IpfsInfo = () => {
                                         <Item.Group>
                                             <Item>
                                                 <Item.Content>
-                                                    <Item.Header as={'a'} href={entry.uri}>
+                                                    <Item.Header as={'a'} href={entry.uri} target='_blank' rel='noopener noreferrer'>
                                                         <span style={{wordWrap: 'break-word'}}>{entry.uri}</span>
                                                     </Item.Header>
                                                     <Item.Description>
