@@ -21,3 +21,4 @@ jobs:
       deploy:
         provider: script
         script: bash scripts/deploy_ipfs.sh infura mainnet.infura.io/v3/$INFURA_ID
+        skip_cleanup: true
