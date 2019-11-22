@@ -21,5 +21,5 @@ jobs:
       script: npm run build:ipfs
       deploy:
         provider: script
-        script: bash scripts/deploy_ipfs.sh pinata mainnet.infura.io/v3/$INFURA_ID
+        script: bash scripts/deploy_ipfs.sh pinata https://mainnet.infura.io/v3/$INFURA_ID
         skip_cleanup: true
