@@ -14,4 +14,10 @@ jobs:
         on:
           branch: master
     - name: "ipfs build"
+      install:
+        - npm ci
+        - npm install -g ipfs-deploy
       script: npm run build:ipfs
+      deploy:
+        provider: script
+        script: bash scripts/deploy_ipfs.sh infura mainnet.infura.io/v3/$INFURA_ID
