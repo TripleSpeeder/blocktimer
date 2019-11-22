@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/TripleSpeeder/blocktimer.svg?branch=master)](https://travis-ci.com/TripleSpeeder/blocktimer)
+
 ### Access options:
 
 #### IPFS + ENS
