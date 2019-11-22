@@ -20,7 +20,8 @@
     "build:ipfs": "PUBLIC_URL='.' react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy:gh": "npm run build:gh && gh-pages -d build"
+    "deploy:gh": "npm run build:gh && gh-pages -d build",
+    "deploy:ipfs": "npm run build:ipfs && ipfs-deploy build -p dappnode -O | ens-updater setContenthash blocktimer.dappstar.eth --web3 http://fullnode.dappnode:8545 --contenttype ipfs-ns --contenthash stdin"
   },
   "eslintConfig": {
     "extends": "react-app"
