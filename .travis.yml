@@ -17,6 +17,7 @@ jobs:
       install:
         - npm ci
         - npm install -g ipfs-deploy
+        - npm install -g @triplespeeder/ens-updater
       script: npm run build:ipfs
       deploy:
         provider: script
