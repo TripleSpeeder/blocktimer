@@ -1,11 +1,16 @@
 language: node_js
 node_js: 12
-script: npm run build:gh
-deploy:
-  provider: pages
-  skip_cleanup: true
-  github_token: $GITHUB_TOKEN
-  keep_history: true
-  local_dir: build
-  on:
-    branch: master
+jobs:
+  include:
+    - name: "Classic build"
+      script: npm run build:gh
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        github_token: $GITHUB_TOKEN
+        keep_history: true
+        local_dir: build
+        on:
+          branch: master
+    - name: "ipfs build"
+      script: npm run build:ipfs
