@@ -3,7 +3,7 @@ language: node_js
 node_js: 12
 jobs:
   include:
-    - name: "Classic build"
+    - name: "Github Pages build"
       script: npm run build:gh
       deploy:
         provider: pages
@@ -13,7 +13,7 @@ jobs:
         local_dir: build
         on:
           branch: master
-    - name: "ipfs build"
+    - name: "IPFS build"
       install:
         - npm ci
         - npm install -g ipfs-deploy
