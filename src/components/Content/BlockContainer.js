@@ -1,25 +1,50 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import PropTypes from 'prop-types'
-import gql from 'graphql-tag';
-import {useQuery} from '@apollo/react-hooks'
+import {findBlock} from '../findBlock'
 import BlockDisplay from './BlockDisplay'
-
-const GET_BLOCK = gql`
-  query Block($timestamp: Int, $height: Int) {
-      block(timestamp: $timestamp, height: $height) {
-        timestamp
-        height
-        hash
-      }
-  }
-`;
+import getWeb3 from '../../getWeb3'
 
 const BlockContainer = ({timestamp}) => {
-    const {loading, error, data} = useQuery(GET_BLOCK, {
-        variables: {
-            timestamp: timestamp,
-        },
-    })
+    const [web3, setWeb3] = useState()
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(false)
+    const [block, setBlock] = useState()
+
+    useEffect(()=>{
+       let run = async function() {
+           try {
+               const web3Instance = await getWeb3
+               setWeb3(web3Instance)
+           }catch(error) {
+               setError(error)
+           }
+           finally {
+               setLoading(false)
+           }
+       }
+       run()
+    },[])
+
+    useEffect(() => {
+        let run = async function() {
+            try {
+                setError(false)
+                setLoading(true)
+                let currentBlockNumber = await web3.eth.getBlockNumber()
+                let block = await findBlock(web3, currentBlockNumber, timestamp, 30)
+                setBlock(block)
+            } catch(error) {
+                console.log("Error while finding block: " + error.message)
+                setError(error)
+            } finally{
+                setLoading(false)
+            }
+        }
+
+        if(web3) {
+            run()
+        }
+    }, [web3, timestamp])
 
     if (loading) {
         return <BlockDisplay loading={true}/>
@@ -33,19 +58,18 @@ const BlockContainer = ({timestamp}) => {
         )
     }
 
-    if (!data) {
+    if (!block) {
         return (<div>No block loaded</div>)
     }
 
-    // const diff = moment.unix(data.block.timestamp).diff(moment.unix(timestamp), 'seconds')
-    const diff = timestamp - data.block.timestamp
+    const diff = timestamp - block.timestamp
 
     return (
         <BlockDisplay
             error={error}
-            hash={data.block.hash}
-            height={data.block.height}
-            timestamp={data.block.timestamp}
+            hash={block.hash}
+            height={block.number}
+            timestamp={block.timestamp}
             diff={diff}
         />
     )
