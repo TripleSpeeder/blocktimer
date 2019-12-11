@@ -31,7 +31,7 @@ const BlockContainer = ({timestamp}) => {
                 setError(false)
                 setLoading(true)
                 let currentBlockNumber = await web3.eth.getBlockNumber()
-                let block = await findBlock(web3, currentBlockNumber, timestamp, 30)
+                let block = await findBlock(web3, currentBlockNumber, timestamp, 120)
                 setBlock(block)
             } catch(error) {
                 console.log("Error while finding block: " + error.message)
