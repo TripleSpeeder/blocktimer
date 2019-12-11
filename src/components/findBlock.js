@@ -7,19 +7,23 @@ function getBlockDelta(deltaSeconds) {
 export async function findBlock(web3, startBlockNumber, targetTimestamp, threshold, depth = 0, prevResult = {}) {
     const debug = false
     debug && console.log(`Depth ${depth}: Getting startblock ${startBlockNumber}`)
+
     // get startBlock
     let startBlock
-    try {
+    let numTries = 0
+    do {
         startBlock = await web3.eth.getBlock(startBlockNumber)
+        numTries++
         if (startBlock === null) {
-            // No idea why this happens sometimes :-( As a workaround try to get the previous block
-            debug && console.log(`Got null for block ${startBlockNumber}. Trying previous block....`)
-            startBlock = await web3.eth.getBlock(startBlockNumber-1)
+            debug && console.log(`Got null for block ${startBlockNumber}. Trying to get previous block (Try ${numTries}).`)
+            startBlockNumber--
         }
-        debug && console.log(`Got startBlock ${startBlockNumber} with timestamp ${startBlock.timestamp}`)
-    }catch(error) {
-        console.log("Error getting block: " + error.message)
+    } while ((numTries < 10) && (startBlock === null))
+    if (startBlock === null) {
+        throw Error(`Failed to get block after ${numTries} attempts. Giving up.`)
     }
+    debug && console.log(`Got startBlock ${startBlockNumber} with timestamp ${startBlock.timestamp}`)
+
     // calculate delta time from startBlock to targetTimestamp
     let deltaSeconds = startBlock.timestamp - targetTimestamp
     debug && console.log(`deltaSeconds: ${deltaSeconds}`)
