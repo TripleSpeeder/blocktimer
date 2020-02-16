@@ -39,7 +39,7 @@ const IpfsInfo = () => {
         },
         {
             type: 'Https',
-            uri: 'https://triplespeeder.github.io/blocktimer/',
+            uri: 'https://blocktimer.dappstar.io/',
             description: 'Fallback traditional hosting on github pages.',
         },
     ]
